@@ -1,0 +1,57 @@
+---
+---
+
+<div class="fog fog--1"></div>
+<div class="fog fog--2"></div>
+
+<style>
+  .fog {
+    position: absolute;
+    pointer-events: none;
+    filter: blur(100px);
+    will-change: transform;
+  }
+
+  .fog--1 {
+    width: 100%;
+    height: 600px;
+    top: -10%;
+    left: -5%;
+    background: rgba(216, 216, 216, 0.75);
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: fog-drift-1 45s linear infinite;
+  }
+
+  .fog--2 {
+    width: 100%;
+    height: 500px;
+    bottom: -5%;
+    right: 10%;
+    background: rgba(192, 192, 192, 0.7);
+    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+    animation: fog-drift-2 55s linear infinite;
+  }
+
+  @keyframes fog-drift-1 {
+    0% { transform: translate(-30px, 0) rotate(0deg); }
+    25% { transform: translate(0, 20px) rotate(90deg); }
+    50% { transform: translate(30px, 0) rotate(180deg); }
+    75% { transform: translate(0, -20px) rotate(270deg); }
+    100% { transform: translate(-30px, 0) rotate(360deg); }
+  }
+
+  @keyframes fog-drift-2 {
+    0% { transform: translate(40px, 0) rotate(0deg); }
+    25% { transform: translate(0, -30px) rotate(-90deg); }
+    50% { transform: translate(-40px, 0) rotate(-180deg); }
+    75% { transform: translate(0, 30px) rotate(-270deg); }
+    100% { transform: translate(40px, 0) rotate(-360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fog--1,
+    .fog--2 {
+      animation: none;
+    }
+  }
+</style>

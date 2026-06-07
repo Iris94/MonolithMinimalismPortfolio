@@ -1,0 +1,63 @@
+---
+---
+
+<section class="landing">
+  <h1 class="hero-ai">AI</h1>
+  <h2 class="hero-development">DEVELOPMENT</h2>
+  <div class="hero-group">
+    <div class="hero-group__item">
+      <h4>FRONT END</h4>
+    </div>
+    <div class="hero-group__item">
+      <h4>UMBRACO UI</h4>
+    </div>
+    <div class="hero-group__item">
+      <h4>GAME DEVELOPMENT</h4>
+    </div>
+  </div>
+</section>
+
+<style>
+  .landing {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+  }
+
+  .hero-ai {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    color: var(--nord8);
+    animation: ai-drift 60s ease-in-out infinite;
+  }
+
+  .hero-development {
+    position: absolute;
+    top: 48%;
+    left: 0;
+    animation: dev-drift 80s ease-in-out infinite;
+  }
+
+  @keyframes ai-drift {
+    0% { transform: translateY(0); }
+    60% { transform: translateY(100px); }
+    100% { transform: translateY(100px); }
+  }
+
+  @keyframes dev-drift {
+    0% { transform: translateX(0); }
+    70% { transform: translateX(160px); }
+    100% { transform: translateX(160px); }
+  }
+
+  .hero-group {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    padding-bottom: 50px;
+  }
+</style>

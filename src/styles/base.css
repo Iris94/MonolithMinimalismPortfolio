@@ -1,0 +1,87 @@
+@import "./root.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+h1 { font-size: clamp(12rem, 22vw, 20rem); letter-spacing: 0.12em; line-height: 0.85; }
+h2 { font-size: clamp(6rem, 10vw, 9rem); letter-spacing: 0.1em; line-height: 0.9; }
+h3 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); }
+h4 { font-size: 1.75rem; }
+h5 { font-size: 1.25rem; letter-spacing: 0.1em; }
+h6 { font-size: 1rem; letter-spacing: 0.15em; }
+
+.main-wrapper {
+  display: grid;
+  grid-template-columns: 5% 1fr auto;
+  max-width: 1920px;
+  margin: 0 auto;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.content-area {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.right-sidenav {
+  grid-column: 3;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  z-index: 10;
+}
+
+.right-sidenav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--nord3) 12%, transparent) 15%,
+    color-mix(in srgb, var(--nord3) 12%, transparent) 85%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.light-cube {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--bg-color);
+}
