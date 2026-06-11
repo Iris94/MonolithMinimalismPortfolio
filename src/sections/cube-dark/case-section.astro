@@ -1,0 +1,72 @@
+---
+---
+
+<section class="case" id="case">
+  <div class="case-headings">
+    <h2 class="case-case">CASE</h2>
+    <h2 class="case-study">STUDY</h2>
+  </div>
+  <div class="case-content">
+    <p class="case-paragraph">
+      I am currently working as a freelance software engineer specializing in Umbraco systems. Over the years, I've contributed to large-scale web applications for clients like Jesperhus, Maus and Inet. I have extensive experience collaborating with international companies, with a strong focus on the Scandinavian market.
+    </p>
+  </div>
+</section>
+
+<style>
+  .case {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+  }
+
+  .case-headings {
+    position: absolute;
+    top: 15%;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-case {
+    animation: case-move 6s ease-out forwards;
+  }
+
+  .case-study {
+    animation: study-move 8s ease-out forwards;
+  }
+
+  .case-content {
+    margin-top: auto;
+    padding-bottom: 50px;
+    max-width: 40%;
+    align-self: end;
+  }
+
+  .case-paragraph {
+    color: var(--nord5);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    letter-spacing: 0.06em;
+  }
+
+  @keyframes case-move {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50px); }
+  }
+
+  @keyframes study-move {
+    0% { transform: translateX(50vw); }
+    100% { transform: translateX(4ch); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-case,
+    .case-study {
+      animation: none;
+    }
+  }
+</style>

@@ -4,32 +4,38 @@
 <nav>
   <ul class="nav-list">
     <li>
-      <a href="#" class="nav-link nav-link--active">
-        <span>INDEX</span>
+      <a href="#home" class="nav-link">
+        <span>HOME</span>
+        <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
+      </a>
+    </li>
+    <li>
+      <a href="#about" class="nav-link">
+        <span>ABOUT</span>
+        <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
+      </a>
+    </li>
+    <li>
+      <a href="#case" class="nav-link">
+        <span>CASE STUDY</span>
         <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
       </a>
     </li>
     <li>
       <a href="#" class="nav-link">
-        <span>STRUCTURE</span>
-        <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link">
-        <span>ATMOSPHERE</span>
-        <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link">
-        <span>CHRONICLE</span>
+        <span>TECH STACK</span>
         <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
       </a>
     </li>
     <li>
       <a href="#" class="nav-link">
         <span>CONTACT</span>
+        <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
+      </a>
+    </li>
+    <li class="nav-list__separator">
+      <a href="#" class="nav-link nav-link--blog">
+        <span>BLOG</span>
         <span class="material-symbols-outlined nav-link-icon">arrow_right_alt</span>
       </a>
     </li>
@@ -87,6 +93,10 @@
 
   .nav-link:hover .nav-link-icon {
     transform: translateX(4px);
+  }
+
+  .nav-list__separator {
+    margin-top: auto;
   }
 
   .sidenav-clock-wrapper {
