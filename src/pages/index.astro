@@ -108,6 +108,7 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
   }
 
   .laptop {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -151,8 +152,13 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
   }
 
   .laptop-hinge {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     width: 92%;
     height: 10px;
+    margin: 0 auto;
     background: linear-gradient(
       to bottom,
       #1a1a1a 0%,
@@ -161,13 +167,17 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
       #1a1a1a 100%
     );
     border-radius: 0 0 2px 2px;
-    position: relative;
     z-index: -1;
   }
 
   .laptop-base {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
     width: 104%;
     height: 32px;
+    margin: 0 auto;
     background: linear-gradient(
       to bottom,
       #4a4a4c 0%,
@@ -181,8 +191,6 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    margin-top: -2px;
   }
 
   .laptop-base::before {
@@ -226,14 +234,16 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
   const track = document.getElementById("zoom-track");
   const box = document.getElementById("zoom-box");
   const content = document.getElementById("box-content");
+  const hinge = document.querySelector(".laptop-hinge");
+  const base = document.querySelector(".laptop-base");
   // Dodajemo provjeru da spriječimo JS greške pri mountanju komponente
   if (track && box && content) {
     
     // 1. FAZA: Širenje boxa (od početka do pola scrolla)
     scroll(
       animate(box, {
-        width: ["900px", "100%"],
-        height: ["500px", "100%"],
+        width: ["900px", "100vw"],
+        height: ["500px", "100vh"],
         borderRadius: ["12px", "0px"],
         borderWidth: ["1px", "0px"]
       }),
@@ -245,7 +255,18 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
       }
     );
 
-    // 2. FAZA: Fade in content
+    // 2. FAZA: Fade out laptop hinge + base (brze od content fade-a)
+    if (hinge && base) {
+      scroll(
+        animate([hinge, base], { opacity: [1, 0] }),
+        {
+          target: track,
+          offset: [0.5, 0.75]
+        }
+      );
+    }
+
+    // 3. FAZA: Fade in content
     scroll(
       animate(content, { opacity: [0, 1] }),
       {

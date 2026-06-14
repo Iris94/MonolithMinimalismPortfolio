@@ -5,8 +5,7 @@
   class="landing"
   id="home"
 >
-  <h1 class="hero-ai">AI</h1>
-  <h2 class="hero-development">DEVELOPMENT</h2>
+  <h1 class="hero-text animated-text">AI DEV</h1>
   <div class="hero-group">
     <div class="hero-group-item">
       <h4>FRONT END</h4>
@@ -29,31 +28,10 @@
     overflow: clip;
   }
 
-  .hero-ai {
+  .hero-text {
     position: absolute;
     top: 20%;
     left: 0;
-    color: var(--nord10);
-    animation: ai-drift 60s ease-in-out infinite;
-  }
-
-  .hero-development {
-    position: absolute;
-    top: 48%;
-    left: 0;
-    animation: dev-drift 80s ease-in-out infinite;
-  }
-
-  @keyframes ai-drift {
-    0% { transform: translateY(0); }
-    60% { transform: translateY(100px); }
-    100% { transform: translateY(100px); }
-  }
-
-  @keyframes dev-drift {
-    0% { transform: translateX(0); }
-    70% { transform: translateX(160px); }
-    100% { transform: translateX(160px); }
   }
 
   .hero-group {

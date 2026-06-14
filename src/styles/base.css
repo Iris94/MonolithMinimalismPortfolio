@@ -27,10 +27,18 @@ body {
   background-color: var(--bg-color);
   color: var(--text-primary);
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: clamp(1rem, 1.15vw, 1.375rem);
+  font-weight: 500;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+p {
+  font-family: var(--font-body);
+  font-weight: 800;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,8 +49,8 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase;
 }
 
-h1 { font-size: clamp(12rem, 22vw, 20rem); letter-spacing: 0.12em; line-height: 0.85; }
-h2 { font-size: clamp(6rem, 10vw, 9rem); letter-spacing: 0.1em; line-height: 0.9; }
+h1 { font-size: clamp(8rem, 13.5vw, 16.25rem); letter-spacing: 0.12em; line-height: 0.85; }
+h2 { font-size: clamp(6rem, 11.5vw, 13.75rem); letter-spacing: 0.1em; line-height: 0.9; }
 h3 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); }
 h4 { font-size: 1.75rem; }
 h5 { font-size: 1.25rem; letter-spacing: 0.1em; }
@@ -60,6 +68,9 @@ h6 { font-size: 1rem; letter-spacing: 0.15em; }
 
 .cube-master--dark {
   background: var(--bg-dark);
+  --gradient-top: var(--gradient-top-light);
+  --gradient-mid: var(--gradient-mid-light);
+  --gradient-bottom: var(--gradient-bottom-light);
 }
 
 .cube-container {
@@ -99,7 +110,7 @@ h6 { font-size: 1rem; letter-spacing: 0.15em; }
   justify-content: space-between;
   padding: 4rem 2rem;
   background: transparent;
-  transition: background 0.3s ease;
+  mix-blend-mode: difference;
 }
 
 .right-sidenav::before {
@@ -112,19 +123,11 @@ h6 { font-size: 1rem; letter-spacing: 0.15em; }
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    color-mix(in srgb, var(--nord3) 12%, transparent) 15%,
-    color-mix(in srgb, var(--nord3) 12%, transparent) 85%,
+    color-mix(in srgb, white 12%, transparent) 15%,
+    color-mix(in srgb, white 12%, transparent) 85%,
     transparent 100%
   );
   pointer-events: none;
 }
 
-:root[data-sidenav-theme="dark"] .right-sidenav::before {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    color-mix(in srgb, var(--nord5) 12%, transparent) 15%,
-    color-mix(in srgb, var(--nord5) 12%, transparent) 85%,
-    transparent 100%
-  );
-}
+
