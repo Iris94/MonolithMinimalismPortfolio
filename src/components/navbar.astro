@@ -45,11 +45,19 @@
 <div class="sidenav-clock-wrapper">
   <div class="clock-ring">
     <svg class="clock-progress" viewBox="0 0 100 100">
-      <circle class="clock-progress-circle" cx="50" cy="50" r="22"
-              fill="none" stroke="var(--nord0)"
-              stroke-width="44" stroke-linecap="butt"
-              stroke-dasharray="138.23" stroke-dashoffset="138.23"
-              transform="rotate(-90 50 50)" />
+      <circle
+        class="clock-progress-circle"
+        cx="50"
+        cy="50"
+        r="22"
+        fill="none"
+        stroke="var(--nord0)"
+        stroke-width="44"
+        stroke-linecap="butt"
+        stroke-dasharray="138.23"
+        stroke-dashoffset="138.23"
+        transform="rotate(-90 50 50)"
+      />
     </svg>
     <div class="clock-hand"></div>
   </div>
@@ -73,16 +81,28 @@
     text-transform: uppercase;
     letter-spacing: 0.2em;
     text-decoration: none;
-    color: var(--nord3);
-    transition: color 0.2s;
+    color: color-mix(
+      in oklab,
+      var(--nord3) calc((1 - var(--text-progress, 0)) * 100%),
+      var(--nord5) calc(var(--text-progress, 0) * 100%)
+    );
+    transition: color 0.1s ease;
   }
 
   .nav-link:hover {
-    color: var(--nord0);
+    color: color-mix(
+      in oklab,
+      var(--nord0) calc((1 - var(--text-progress, 0)) * 100%),
+      var(--nord6) calc(var(--text-progress, 0) * 100%)
+    );
   }
 
   .nav-link--active {
-    color: var(--nord0);
+    color: color-mix(
+      in oklab,
+      var(--nord0) calc((1 - var(--text-progress, 0)) * 100%),
+      var(--nord6) calc(var(--text-progress, 0) * 100%)
+    );
   }
 
   .nav-link-icon {
@@ -115,6 +135,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    transition: border-color 0.3s ease;
   }
 
   .clock-progress {
@@ -122,6 +143,10 @@
     inset: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .clock-progress-circle {
+    transition: stroke 0.3s ease;
   }
 
   .clock-hand {
@@ -134,32 +159,82 @@
     transform-origin: top;
     transform: translateX(-50%) rotate(180deg);
     z-index: 2;
+    transition: background 0.3s ease;
+  }
+
+  :root[data-sidenav-theme="dark"] .clock-hand {
+    background: var(--nord5);
+  }
+
+  :root[data-sidenav-theme="dark"] .clock-progress-circle {
+    stroke: var(--nord5);
+  }
+
+  :root[data-sidenav-theme="dark"] .clock-ring {
+    border-color: color-mix(in srgb, var(--nord5) 20%, transparent);
   }
 </style>
 
 <script>
-  import { scroll, animate } from "motion";
-
   document.addEventListener("DOMContentLoaded", () => {
-    const hand = document.querySelector(".clock-hand");
-    const circle = document.querySelector(".clock-progress-circle");
+    let raf = null;
+    function updateOnScroll() {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
 
-    if (!hand || !circle) return;
+        const darkCube = document.querySelector(".cube-master--dark");
+        if (!darkCube) return;
+        const rect = darkCube.getBoundingClientRect();
+        const viewportH = window.innerHeight;
+        const darkVisible = Math.max(0, Math.min(rect.bottom, viewportH) - Math.max(rect.top, 0));
+        const darkRatio = Math.min(1, Math.max(0, darkVisible / viewportH));
+        document.documentElement.style.setProperty("--text-progress", darkRatio);
+        document.documentElement.setAttribute("data-sidenav-theme", darkRatio > 0.5 ? "dark" : "light");
+        document.documentElement.setAttribute("data-fog-theme", darkRatio >= 0.95 ? "dark" : "light");
 
-    const circumference = 2 * Math.PI * 22;
+        const hand = document.querySelector(".clock-hand");
+        const circle = document.querySelector(".clock-progress-circle");
+        if (hand && circle) {
+          const scrollY = window.scrollY;
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = Math.min(1, Math.max(0, maxScroll > 0 ? scrollY / maxScroll : 0));
+          hand.style.transform = `translateX(-50%) rotate(${180 + progress * 360}deg)`;
+          const circumference = 2 * Math.PI * 22;
+          circle.style.strokeDashoffset = circumference * (1 - progress);
+        }
+      });
+    }
 
-    scroll(
-      animate(hand, {
-        rotate: [180, 540]
-      }),
-      { axis: "y" }
-    );
+    window.addEventListener("scroll", updateOnScroll, { passive: true });
+    window.addEventListener("resize", updateOnScroll);
+    updateOnScroll();
 
-    scroll(
-      animate(circle, {
-        strokeDashoffset: [circumference, 0]
-      }),
-      { axis: "y" }
-    );
+    const sections = ["home", "about", "case"]
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const linkMap = new Map();
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        linkMap.set(href.slice(1), link);
+      }
+    });
+
+    if (sections.length > 0) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const link = linkMap.get(entry.target.id);
+            if (link) {
+              link.classList.toggle("nav-link--active", entry.isIntersecting);
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -40% 0px" }
+      );
+      sections.forEach((section) => sectionObserver.observe(section));
+    }
   });
 </script>

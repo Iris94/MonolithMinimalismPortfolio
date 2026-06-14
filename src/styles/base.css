@@ -1,11 +1,26 @@
 @import "./root.css";
 
+:root {
+  --sidenav-width: 240px;
+  --fog-1-bg: rgba(216, 216, 216, 0.2);
+  --fog-2-bg: rgba(192, 192, 192, 0.15);
+}
+
+:root[data-fog-theme="dark"] {
+  --fog-1-bg: rgba(236, 239, 244, 0.005);
+  --fog-2-bg: rgba(236, 239, 244, 0.003);
+}
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -33,33 +48,58 @@ h4 { font-size: 1.75rem; }
 h5 { font-size: 1.25rem; letter-spacing: 0.1em; }
 h6 { font-size: 1rem; letter-spacing: 0.15em; }
 
-.main-wrapper {
-  display: grid;
-  grid-template-columns: 5% 1fr auto;
-  max-width: 1920px;
-  margin: 0 auto;
-  min-height: 100vh;
+.cube-master {
   width: 100%;
+  min-height: 100vh;
   position: relative;
 }
 
+.cube-master--light {
+  background: var(--bg-color);
+}
+
+.cube-master--dark {
+  background: var(--bg-dark);
+}
+
+.cube-container {
+  position: relative;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-left: 5rem;
+  padding-right: calc(var(--sidenav-width) + 1rem);
+  background: transparent;
+}
+
 .content-area {
-  grid-column: 2;
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  z-index: 1;
+}
+
+.layout-fog {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .right-sidenav {
-  grid-column: 3;
-  height: 100vh;
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 8px;
+  width: var(--sidenav-width);
+  height: 100vh;
+  z-index: 100;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 4rem 2rem;
-  z-index: 10;
+  background: transparent;
+  transition: background 0.3s ease;
 }
 
 .right-sidenav::before {
@@ -79,9 +119,12 @@ h6 { font-size: 1rem; letter-spacing: 0.15em; }
   pointer-events: none;
 }
 
-.light-cube {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  background: var(--bg-color);
+:root[data-sidenav-theme="dark"] .right-sidenav::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--nord5) 12%, transparent) 15%,
+    color-mix(in srgb, var(--nord5) 12%, transparent) 85%,
+    transparent 100%
+  );
 }

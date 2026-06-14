@@ -11,10 +11,23 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+    <link
+      rel="icon"
+      href="/favicon.ico"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width"
+    />
+    <meta
+      name="generator"
+      content={Astro.generator}
+    />
     <title>MonolithMinimalism</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -22,16 +35,49 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
     />
   </head>
   <body>
-    <div class="light-cube">
-      <Fog />
-    </div>
+    <div class="layout-wrapper">
+      <div class="layout-fog"><Fog /></div>
+      <div
+        class="cube-master cube-master--light"
+        data-cube="light"
+      >
+        <div class="cube-container">
+          <div class="content-area">
+            <LandingSection />
+            <AboutSection />
+            <SocialsSection />
+          </div>
+        </div>
+      </div>
 
-    <div class="main-wrapper">
-      <div class="content-area">
-        <LandingSection />
-        <AboutSection />
-        <SocialsSection />
-        <CaseSection />
+      <div
+        class="scroll-section"
+        id="zoom-track"
+      >
+        <div class="sticky-container">
+          <div class="laptop">
+            <div
+              class="dark-transition"
+              id="zoom-box"
+            >
+              <div
+                class="cube-master cube-master--dark"
+                data-cube="dark"
+                id="box-content"
+              >
+                <div class="cube-container">
+                  <div class="content-area">
+                    <CaseSection />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="laptop-hinge"></div>
+            <div class="laptop-base">
+              <div class="laptop-touchpad"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <aside class="right-sidenav">
@@ -40,3 +86,177 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
     </div>
   </body>
 </html>
+
+<style>
+  .scroll-section {
+    position: relative;
+    height: 200vh; /* Daje 100vh za scrollanje dok je ekran zamrznut */
+    background: transparent;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sticky-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%; /* Ovo je falilo da kontejner drži punu širinu ekrana */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .laptop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .dark-transition {
+    width: 900px;
+    height: 500px;
+    background: var(--bg-dark);
+    border: 1px solid #1a1a1a;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      inset 0 0 0 8px #3a3a3c,
+      inset 0 0 0 9px #2c2c2e,
+      inset 0 0 0 10px #1a1a1a;
+  }
+
+  .dark-transition::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.06) 50%,
+      transparent 60%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .dark-transition .cube-master--dark {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .laptop-hinge {
+    width: 92%;
+    height: 10px;
+    background: linear-gradient(
+      to bottom,
+      #1a1a1a 0%,
+      #2c2c2e 40%,
+      #3a3a3c 60%,
+      #1a1a1a 100%
+    );
+    border-radius: 0 0 2px 2px;
+    position: relative;
+    z-index: -1;
+  }
+
+  .laptop-base {
+    width: 104%;
+    height: 32px;
+    background: linear-gradient(
+      to bottom,
+      #4a4a4c 0%,
+      #3a3a3c 40%,
+      #2c2c2e 100%
+    );
+    border-radius: 0 0 14px 14px;
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: -2px;
+  }
+
+  .laptop-base::before {
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 20%,
+      rgba(0, 0, 0, 0.4) 80%,
+      transparent 100%
+    );
+  }
+
+  .laptop-touchpad {
+    width: 200px;
+    height: 18px;
+    background: linear-gradient(
+      to bottom,
+      #0a0a0a 0%,
+      #1c1c1e 100%
+    );
+    border-radius: 4px;
+    border: 1px solid #050505;
+    box-shadow:
+      inset 0 1px 3px rgba(0, 0, 0, 0.8),
+      0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 1;
+  }
+</style>
+
+<script>
+  import { scroll, animate } from "motion";
+
+  const track = document.getElementById("zoom-track");
+  const box = document.getElementById("zoom-box");
+  const content = document.getElementById("box-content");
+  // Dodajemo provjeru da spriječimo JS greške pri mountanju komponente
+  if (track && box && content) {
+    
+    // 1. FAZA: Širenje boxa (od početka do pola scrolla)
+    scroll(
+      animate(box, {
+        width: ["900px", "100%"],
+        height: ["500px", "100%"],
+        borderRadius: ["12px", "0px"],
+        borderWidth: ["1px", "0px"]
+      }),
+      {
+        target: track,
+        // Kreće kad vrh tracka dotakne vrh ekrana
+        // Završava tačno na pola ukupnog scrolla
+        offset: ["start start", "center center"]
+      }
+    );
+
+    // 2. FAZA: Fade in content
+    scroll(
+      animate(content, { opacity: [0, 1] }),
+      {
+        target: track,
+        // Kreće tačno tamo gdje je prošla animacija završila
+        // Završava kad dno tracka dotakne dno ekrana
+        offset: ["center center", "end end"]
+      }
+    );
+
+  } else {
+    console.warn("Motion.js: Elementi za scroll animaciju nisu pronađeni.");
+  }
+</script>
