@@ -18,4 +18,7 @@
   --gradient-top-light: #8B7BB5;
   --gradient-mid-light: #C493BD;
   --gradient-bottom-light: #FFB3A8;
+
+  --button-radius: 8px;
+  --dark-card-color: #252a36;
 }

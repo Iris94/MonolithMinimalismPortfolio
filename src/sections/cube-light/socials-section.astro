@@ -78,15 +78,38 @@ import { SITE } from "../../constants";
     width: 250px;
     height: 250px;
     background: var(--dark);
+    border-radius: var(--button-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
   }
 
-  .socials-btn:hover {
-    background: var(--gradient-bottom);
+  .socials-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      var(--gradient-top),
+      var(--gradient-mid),
+      var(--gradient-bottom)
+    );
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .socials-btn:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .socials-btn > * {
+    position: relative;
+    z-index: 1;
   }
 
   .socials-btn--last {

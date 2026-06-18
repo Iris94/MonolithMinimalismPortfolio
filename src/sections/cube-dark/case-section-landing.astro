@@ -4,11 +4,12 @@ const aboutText =
 ---
 
 <section
-  class="case"
+  class="case-section-landing"
   id="case"
 >
   <div class="case-headings">
-    <h2 class="case-title animated-text">CASE STUDY</h2>
+    <h2 class="case-case animated-text">CASE</h2>
+    <h2 class="case-study animated-text">STUDY</h2>
   </div>
   <div class="case-content">
     <p class="case-paragraph">{aboutText}</p>
@@ -16,9 +17,9 @@ const aboutText =
 </section>
 
 <style>
-  .case {
+  .case-section-landing {
     position: relative;
-    height: 85dvh;
+    height: 80dvh;
     display: flex;
     flex-direction: row;
     justify-content: end;
@@ -35,6 +36,10 @@ const aboutText =
     flex-direction: column;
     pointer-events: none;
     z-index: 1;
+  }
+
+  .case-study {
+    margin-left: 150px;
   }
 
   .case-content {

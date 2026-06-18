@@ -1,0 +1,257 @@
+---
+const projects = [
+  {
+    title: "Qiko",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    media: "/qikoBanner.png",
+  },
+  {
+    title: "Empire Shield",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    media: "/empire.webp",
+  },
+  {
+    title: "Tetris",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    media: "/tetris.gif",
+  },
+];
+
+function slugify(title: string) {
+  return title.toLowerCase().replace(/\s+/g, "-");
+}
+
+const defaultProject = projects[0];
+const defaultSlug = defaultProject ? slugify(defaultProject.title) : "";
+---
+
+<section
+  class="projects-section"
+  id="projects"
+>
+  <div class="project-box">
+    <nav class="project-box__nav">
+      {projects.map((project, index) => {
+        const slug = slugify(project.title);
+        const isActive = index === 0;
+        return (
+          <button
+            class={`project-box__tab ${isActive ? "project-box__tab--active" : ""}`}
+            data-project={slug}
+            type="button"
+          >
+            {project.title}
+          </button>
+        );
+      })}
+    </nav>
+
+    <div
+      class="project-box__content"
+      data-active={defaultSlug}
+    >
+      {projects.map((project, index) => {
+        const slug = slugify(project.title);
+        const isActive = index === 0;
+        return (
+          <div
+            class={`project-box__pane ${isActive ? "project-box__pane--active" : ""}`}
+            data-project={slug}
+          >
+            <div class="project-box__col project-box__col--text">
+              <div class="project-box__card">
+                <p>{project.description}</p>
+              </div>
+            </div>
+            <div class="project-box__col project-box__col--media">
+              <img
+                src={project.media}
+                alt={project.title}
+                class="project-box__media"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    --gradient-top-dark: #1A1326;
+    --gradient-mid-dark: #3A2436;
+    --gradient-bottom-dark: #8A4B43;
+    height: auto;
+  }
+
+  .project-box {
+    width: 100%;
+  }
+
+  .project-box__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-box__tab {
+    flex: 1 1 calc(25% - 0.5rem);
+    min-width: 140px;
+    padding: 1.125rem 1.5rem;
+    background: var(--dark-card-color);
+    color: white;
+    border: none;
+    border-radius: var(--button-radius);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .project-box__tab[data-project="qiko"].project-box__tab--active {
+    background: linear-gradient(180deg, var(--gradient-top-dark), var(--gradient-top-light));
+  }
+
+  .project-box__tab[data-project="empire-shield"].project-box__tab--active {
+    background: linear-gradient(180deg, var(--gradient-mid-dark), var(--gradient-mid-light));
+  }
+
+  .project-box__tab[data-project="tetris"].project-box__tab--active {
+    background: linear-gradient(180deg, var(--gradient-bottom-dark), var(--gradient-bottom-light));
+  }
+
+  .project-box__content {
+    position: relative;
+    width: 100%;
+    min-height: 720px;
+    height: auto;
+    border-radius: var(--button-radius);
+    overflow: hidden;
+    transition: background 0.3s ease;
+  }
+
+  .project-box__content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .project-box__content[data-active="qiko"] {
+    background: linear-gradient(180deg, var(--gradient-top-dark), var(--gradient-top-light));
+  }
+
+  .project-box__content[data-active="empire-shield"] {
+    background: linear-gradient(180deg, var(--gradient-mid-dark), var(--gradient-mid-light));
+  }
+
+  .project-box__content[data-active="tetris"] {
+    background: linear-gradient(180deg, var(--gradient-bottom-dark), var(--gradient-bottom-light));
+  }
+
+  .project-box__pane {
+    position: relative;
+    z-index: 1;
+    display: none;
+    width: 100%;
+    min-height: 720px;
+    height: auto;
+  }
+
+  .project-box__pane--active {
+    display: flex;
+    flex-direction: row;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .project-box__col {
+    flex: 0 0 50%;
+    display: flex;
+    padding: 2rem;
+  }
+
+  .project-box__col--text {
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .project-box__col--media {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .project-box__card {
+    padding: 2rem;
+    border-radius: var(--button-radius);
+    background: var(--dark-card-color);
+    color: white;
+    max-width: 80%;
+    transition: background 0.3s ease;
+  }
+
+  .project-box__card p {
+    color: white;
+    margin: 0;
+  }
+
+  .project-box__media {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    .project-box__pane--active {
+      flex-direction: column-reverse;
+    }
+
+    .project-box__col {
+      flex: 0 0 auto;
+      width: 100%;
+      padding: 1rem;
+    }
+
+    .project-box__card {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const boxes = document.querySelectorAll(".project-box");
+    boxes.forEach((box) => {
+      const tabs = box.querySelectorAll(".project-box__tab");
+      const panes = box.querySelectorAll(".project-box__pane");
+      const content = box.querySelector(".project-box__content");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const project = tab.dataset.project;
+
+          tabs.forEach((t) => t.classList.remove("project-box__tab--active"));
+          tab.classList.add("project-box__tab--active");
+
+          content.dataset.active = project;
+
+          panes.forEach((pane) => {
+            const isActive = pane.dataset.project === project;
+            pane.classList.toggle("project-box__pane--active", isActive);
+          });
+        });
+      });
+    });
+  });
+</script>

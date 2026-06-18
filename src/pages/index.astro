@@ -5,7 +5,8 @@ import Navbar from "../components/navbar.astro";
 import LandingSection from "../sections/cube-light/landing-section.astro";
 import AboutSection from "../sections/cube-light/about-section.astro";
 import SocialsSection from "../sections/cube-light/socials-section.astro";
-import CaseSection from "../sections/cube-dark/case-section.astro";
+import CaseSectionLanding from "../sections/cube-dark/case-section-landing.astro";
+import ProjectsSection from "../sections/cube-dark/projects-section.astro";
 ---
 
 <html lang="en">
@@ -67,7 +68,7 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
               >
                 <div class="cube-container">
                   <div class="content-area">
-                    <CaseSection />
+                    <CaseSectionLanding />
                   </div>
                 </div>
               </div>
@@ -76,6 +77,17 @@ import CaseSection from "../sections/cube-dark/case-section.astro";
             <div class="laptop-base">
               <div class="laptop-touchpad"></div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="cube-master cube-master--dark"
+        data-cube="dark"
+      >
+        <div class="cube-container">
+          <div class="content-area">
+            <ProjectsSection />
           </div>
         </div>
       </div>
